@@ -1,0 +1,69 @@
+- figure out how to test the API with KEY AND
+  - How do I pass KEY and ID into http request
+    - how do you make http requests?
+      - what is an HTTP requests?
+      action message that is sent by the client to a server
+- figure out required fields
+- figure out which endpoint I should be using
+  - "https://trackapi.nutritionix.com/v2/natural/nutrients"
+  Headers:
+  Content-Type: application/json
+  x-app-id: "39c879ea"
+  x-app-key: "30ead3ecd47392d64713aacf393050fa"
+  x-remote-user-id: "0"
+
+  Body:
+  "query": "apple"
+
+Things you NEVER do:
+- don't copy code without understanding it
+
+Things you should ALWAYS do
+- take notes ESPECIALLY if you are working on a new technology or project
+- if you don't understand it ASK QUESTIONS
+- look up examples ONLY if you understand the problem and can explain the problem to yourself in very CLEAR words
+- have a sandbox project opened on the side, or a node REPL,
+
+1. test the URL with API_KEY and APP_ID
+  - figure out how to test the API with KEY AND
+2. which API do I use?
+3. which fields needs to be required
+
+What is in-memory/persistent database system?
+  database that keeps the whole dataset in RAM. It means that each time you query a database or update data in a database, you only use the main memory. Main memory is faster than any disk. Gather some data and save it and get it back later.
+
+Why do I need a database?
+  database is for persistence (your ability store information over the long haul). In a nutshell, regardless of how the server and client is behaving, my information is saved. The information needed to save can't simply be save just using client side code. Local storage is mechanism for the browser itself to store information locally; the problem we run into is not being able to share information with other clients.
+
+  Why nedb: used for basic db functionality, learning about databases.
+        For my application I want all the data that I recieve from the client side and push it to the database.
+
+What is Node:
+  what is a runtime?
+    normally when I'm writing JS, I'm executing that stuff in the browser. The JS has no meaning without the browser. But with node I can write JS code without the browser, it's is own runtime. The runs on my computer.
+
+when I write node in the terminal, I enter the JS runtime. (kinda like the developers console in the browser). You can write JS code here to test. That is a runtime, where I can write JS and run JS.
+
+What is a server?
+  This server is where all data is stored. Application that runs and listens. It listens for requests of people who want to connect to that server.
+
+
+What is express?
+  simple framework for making webserver.
+
+NPM: Node Package Manager
+Package.json file: configuration file for your project, where all the meta information for our project is stored here; like what is our web application called.
+
+npm init: generates package.json
+
+We can use express to host static files
+
+What is server-side and client-side programming?
+
+How do I setup route in express?
+  This is the endpoint for the API, the address which I will send data to and later also make a request to receive some data.
+
+JSON Parsing to express:
+  I need the route, when it receieves data to understand that data as JSON.
+
+using the fetch function to specify a post request. ( A requesting that is posting data or sending data to the server )
