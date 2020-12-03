@@ -18,8 +18,8 @@ function loadAllProduce() {
 function getProduceList(rawProduceList) {
   let output = '';
   const produce = JSON.parse(rawProduceList);
-  produce.forEach(({ name }) => {
-    output += `<div>${name}</div>`;
+  produce.forEach(({ name, qty, numDays }) => {
+    output += `<div>Name: ${name} | Quantity: ${qty} | Number of days: ${numDays}</div>`;
   });
   return output;
 }
