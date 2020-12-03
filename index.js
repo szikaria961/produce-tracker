@@ -42,6 +42,10 @@ const postSchema = Joi.object({
   .required()
 })
 
+const querySchema = Joi.object({
+  _id: Joi.string().required(),
+});
+
 app.get('/home', function (req, res) {
   res.send('Hello World!')
 });
@@ -60,7 +64,7 @@ app.post('/api/produce', async (req, res, next) => {
 });
 
 app.get('/api/produce', async (req, res, next) => {
-  try{
+  try {
     const data = await db.asyncFind({});
     res.json(data);
   } catch (err) {
@@ -68,6 +72,32 @@ app.get('/api/produce', async (req, res, next) => {
   }
 });
 
+app.get("/api/produce/:id", async (req, res, next) => {
+  const input = {
+    _id: req.params.id,
+  };
+
+  try {
+    await querySchema.validateAsync(input);
+    const data = await db.asyncFindOne(input);
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.delete('/api/produce/:id', async (req, res, next) => {
+  const query = { _id: req.params.id };
+
+  try {
+    await querySchema.validateAsync(query);
+    const data = await db.asyncFindOne(query);
+    const count = await db.asyncRemove(query, {});
+    res.json({ removed: data });
+  } catch (err) {
+    next(err);
+  }
+})
 // client.messages.create({
 //   from: FROM,
 //   body: 'This is a text from Produce',

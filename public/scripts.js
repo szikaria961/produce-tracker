@@ -18,10 +18,19 @@ function loadAllProduce() {
 function getProduceList(rawProduceList) {
   let output = '';
   const produce = JSON.parse(rawProduceList);
-  produce.forEach(({ name, qty, numDays }) => {
-    output += `<div>Name: ${name} | Quantity: ${qty} | Number of days: ${numDays}</div>`;
+  produce.forEach(({ _id: id, name, qty, numDays }) => {
+    output += `<div>Name: ${name} | Quantity: ${qty} | Number of days: ${numDays} | <span onclick="handleDelete('${id}')"><i class="fa fa-trash-o"></i></span></div>`;
   });
   return output;
+}
+
+function handleDelete(id) {
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.open("DELETE", `/api/produce/${id}`, true);
+  xhttp.send();
+
+  loadAllProduce();
 }
 
 let payload = {
