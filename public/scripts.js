@@ -4,6 +4,26 @@ const produceQtyElement = document.getElementById('produce-qty');
 const numDaysElement = document.getElementById('num-days');
 const submitBtn = document.getElementById('submit-btn');
 
+function loadAllProduce() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if(this.readyState == 4 && this.status == 200) {
+      document.getElementById("produce").innerHTML = getProduceList(this.responseText);
+    }
+  };
+  xhttp.open("GET", "/api/produce", true);
+  xhttp.send();
+}
+
+function getProduceList(rawProduceList) {
+  let output = '';
+  const produce = JSON.parse(rawProduceList);
+  produce.forEach(({ name }) => {
+    output += `<div>${name}</div>`;
+  });
+  return output;
+}
+
 let payload = {
   name: '',
   qty: null,
@@ -52,3 +72,4 @@ numDaysElement.addEventListener('input', event => {
 });
 
 submitBtn.addEventListener('click', handleSubmit);
+loadAllProduce();
