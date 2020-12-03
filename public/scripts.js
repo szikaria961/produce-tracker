@@ -1,9 +1,13 @@
 const API_URL = 'api/produce';
 const produceNameElement = document.getElementById('produce-name');
+const produceQtyElement = document.getElementById('produce-qty');
+const numDaysElement = document.getElementById('num-days');
 const submitBtn = document.getElementById('submit-btn');
 
 let payload = {
-  name: ''
+  name: '',
+  qty: null,
+  numDays: null
 }
 
 const handleSubmit = () => {
@@ -26,6 +30,24 @@ produceNameElement.addEventListener('keyup', event => {
   payload = {
     ...payload,
     name: updatedProduceName
+  }
+});
+
+produceQtyElement.addEventListener('input', event => {
+  const updatedProduceQty = event.target.value;
+
+  payload = {
+    ...payload,
+    qty: updatedProduceQty
+  }
+});
+
+numDaysElement.addEventListener('input', event => {
+  const updatedProduceNumberOfDays = event.target.value;
+
+  payload = {
+    ...payload,
+    numDays: updatedProduceNumberOfDays
   }
 });
 
