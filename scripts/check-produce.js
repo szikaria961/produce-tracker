@@ -1,9 +1,6 @@
 const db = require('../db');
 const moment = require('moment');
-
-function getExpirationDate(createdDate, numDays) {
-  return moment(createdDate).add(numDays, 'days');
-}
+const { getExpirationDate } = require('../utils/helpers');
 
 function isExpired({
   now = new Date(),
@@ -19,5 +16,5 @@ function isExpired({
 }
 
 module.exports = {
-  isExpired
+  isExpired,
 }

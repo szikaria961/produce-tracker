@@ -1,9 +1,9 @@
 const express = require("express");
-const Datastore = require("nedb");
-const nedb = require("nedb-async").AsyncNedb;
 const Joi = require("joi");
 require("dotenv").config();
+const db = require('./db');
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
+const { createTwilioMessage } = require('./utils/helpers');
 
 const PORT = process.env.PORT || 8000;
 const DB_PATH = process.env.DB_PATH || "produce.db";
@@ -17,9 +17,6 @@ const TO = process.env.TO;
 const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 const BASE_URL ="https://trackapi.nutritionix.com/v2/search/instant/query";
-
-const db = new nedb({ filename: DB_PATH, timestampData: true, autoload: true });
-db.loadDatabase();
 
 const app = express();
 
@@ -97,11 +94,18 @@ app.delete('/api/produce/:id', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-})
-// client.messages.create({
-//   from: FROM,
-//   body: 'This is a text from Produce',
-//   to: TO
-// })
-// .then(messages => console.log(`Message sent! ${messages.sid}`))
-// .catch(e => { console.error('Error', e.code, e.message)});
+});
+
+async function sendReminder() {
+  let message = await createTwilioMessage();
+  if(message != null){
+    client.messages.create({
+      from: FROM,
+      body: message,
+      to: TO
+    })
+    .then(messages => console.log(`Message sent! ${messages.sid}`))
+    .catch(e => { console.error('Error', e.code, e.message)});
+  }
+}
+sendReminder();

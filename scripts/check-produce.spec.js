@@ -21,8 +21,7 @@ describe('check-produce', () => {
     });
 
     test('should return false for fresh produce item', () => {
-      const exampleNow = moment('20200103', 'YYYYMMDD');
-      const exampleCreatedDate = moment('20200101', 'YYYYMMDD');
+      const exampleCreatedDate = moment('20201203', 'YYYYMMDD');
 
       const exampleProduceItem = {
         name: 'Strawberry',
@@ -32,7 +31,6 @@ describe('check-produce', () => {
       }
 
       expect(isExpired({
-        now: exampleNow,
         produceItem: exampleProduceItem
       })).toBe(false);
     });
@@ -42,3 +40,4 @@ describe('check-produce', () => {
     });
   });
 })
+
