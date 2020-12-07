@@ -2,19 +2,11 @@ const express = require("express");
 const Joi = require("joi");
 require("dotenv").config();
 const db = require('./db');
-const MessagingResponse = require('twilio').twiml.MessagingResponse;
-const { createTwilioMessage } = require('./utils/helpers');
+const { sendReminder } = require('./twilio/index.js');
 
 const PORT = process.env.PORT || 8000;
 const DB_PATH = process.env.DB_PATH || "produce.db";
 const API_KEY = process.env.API_KEY;
-const APP_ID = process.env.APP_ID;
-const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
-const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
-const FROM = process.env.FROM;
-const TO = process.env.TO;
-
-const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 const BASE_URL ="https://trackapi.nutritionix.com/v2/search/instant/query";
 
@@ -96,16 +88,4 @@ app.delete('/api/produce/:id', async (req, res, next) => {
   }
 });
 
-async function sendReminder() {
-  let message = await createTwilioMessage();
-  if(message != null){
-    client.messages.create({
-      from: FROM,
-      body: message,
-      to: TO
-    })
-    .then(messages => console.log(`Message sent! ${messages.sid}`))
-    .catch(e => { console.error('Error', e.code, e.message)});
-  }
-}
 sendReminder();

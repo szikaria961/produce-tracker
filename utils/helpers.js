@@ -13,10 +13,12 @@ async function createTwilioMessage() {
     let expirationDate = getExpirationDate(createdAt, numDays);
     let getDiff = expirationDate.diff(today, 'days');
 
-    if(getDiff < 3 && getDiff >= 1) {
-      body += `${name} is expiring in ${getDiff} day(s).\n`;
-    } else if( getDiff == 0) {
+    if(getDiff == 2) {
+      body += `${name} is expiring in ${getDiff} days.\n`;
+    } else if(getDiff == 0) {
       body += `${name} is expiring Today.\n`
+    } else if(getDiff == 1) {
+      body += `${name} is expiring in a day.\n`
     }
   });
   return body;
