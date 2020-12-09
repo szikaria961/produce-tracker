@@ -94,3 +94,24 @@ table {
   font-weight: 400;
 }
 
+.page-footer {
+  font-family: 'Roboto Mono', monospace;
+  margin-top: 1rem;
+  color: black;
+  font-weight: 400;
+  font-size: 0.75em;
+  text-align: center;
+}
+
+.heart-icon {
+  color: #a83f39;
+}
+
+.github-link {
+  text-decoration: none;
+  color: #2C3A47;
+}
+
+a {
+  color: inherit;
+}
