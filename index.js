@@ -31,9 +31,6 @@ app.listen(PORT, () => {
 const postSchema = Joi.object({
   name: Joi.string()
   .required(),
-  qty: Joi.number()
-  .integer()
-  .required(),
   numDays: Joi.number()
   .integer()
   .required()

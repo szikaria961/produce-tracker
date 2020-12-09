@@ -3,13 +3,33 @@
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Produce Tracker</title>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <h1>Produce Tracker</h1>
-  <input type="text" placeholder="Name" id="produce-name"/>
-  <input type="number" id="num-days" placeholder="Number of days" min="1"/>
-  <button id="submit-btn" onclick="loadAllProduce()">Submit</button>
-  <div id="produce"></div>
-  <script src="scripts.js"></script>
+  <div id="parent-container">
+    <div class="produce-title">
+      Produce Tracker
+    </div>
+  </div>
+  <div id="parent-container">
+    <div class="produce-input-row">
+      <input class="produce-input name" type="text" placeholder="Name" id="produce-name"/>
+      <input class="produce-input num-days" type="number" id="num-days" placeholder="Number of days" min="1"/>
+    </div>
+  </div>
+  <div id="parent-container">
+    <div class="add-produce">
+      <div id="add-produce-btn" onclick="loadAllProduce()">Submit</div>
+    </div>
+  </div>
+  <div id="parent-container">
+    <div class="produce-container">
+      <table class="produce-data-table">
+        <tbody id="produce-data-table-body">
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script src="js/scripts.js"></script>
 </body>
 </html>

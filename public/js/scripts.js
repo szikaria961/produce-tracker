@@ -1,27 +1,43 @@
 const API_URL = 'api/produce';
 const produceNameElement = document.getElementById('produce-name');
-const produceQtyElement = document.getElementById('produce-qty');
 const numDaysElement = document.getElementById('num-days');
-const submitBtn = document.getElementById('submit-btn');
+const addProduceBtn = document.getElementById('add-produce-btn');
 
 function loadAllProduce() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if(this.readyState == 4 && this.status == 200) {
-      document.getElementById("produce").innerHTML = getProduceList(this.responseText);
+      renderProduceList(this.responseText);
     }
   };
   xhttp.open("GET", "/api/produce", true);
   xhttp.send();
 }
 
-function getProduceList(rawProduceList) {
-  let output = '';
+function renderProduceList(rawProduceList) {
+  const produceDataTable = document.getElementById("produce-data-table-body");
+
+  produceDataTable.innerHTML = `
+    <tr>
+      <th>Name</th>
+      <th>Expiration Date</th>
+      <th></th>
+    </tr>
+  `;
+
   const produce = JSON.parse(rawProduceList);
-  produce.forEach(({ _id: id, name, qty, numDays }) => {
-    output += `<div>Name: ${name} | Quantity: ${qty} | Number of days: ${numDays} | <span onclick="handleDelete('${id}')"><i class="fa fa-trash-o"></i></span></div>`;
+
+  produce.forEach(({ _id: id, name, numDays }) => {
+    const tableRow = document.createElement('TR');
+
+    tableRow.innerHTML = `
+      <td>${name}</td>
+      <td>${numDays}</td>
+      <td><span onclick="handleDelete('${id}')"><i class="fa fa-trash-o"></i></span></td>
+    `;
+
+    produceDataTable.append(tableRow);
   });
-  return output;
 }
 
 function handleDelete(id) {
@@ -35,7 +51,6 @@ function handleDelete(id) {
 
 let payload = {
   name: '',
-  qty: null,
   numDays: null
 }
 
@@ -49,7 +64,7 @@ const handleSubmit = () => {
   }
 
   fetch(API_URL, options)
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => console.log(data));
 }
 
@@ -62,15 +77,6 @@ produceNameElement.addEventListener('keyup', event => {
   }
 });
 
-produceQtyElement.addEventListener('input', event => {
-  const updatedProduceQty = event.target.value;
-
-  payload = {
-    ...payload,
-    qty: updatedProduceQty
-  }
-});
-
 numDaysElement.addEventListener('input', event => {
   const updatedProduceNumberOfDays = event.target.value;
 
@@ -80,5 +86,5 @@ numDaysElement.addEventListener('input', event => {
   }
 });
 
-submitBtn.addEventListener('click', handleSubmit);
+addProduceBtn.addEventListener('click', handleSubmit);
 loadAllProduce();

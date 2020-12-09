@@ -1,0 +1,34 @@
+.parent-container {
+  display: flex;
+  justify-content: center;
+}
+
+.produce-title {
+  display: flex;
+  justify-content: center;
+}
+
+.produce-input-row {
+  display: flex;
+  justify-content: center;
+}
+
+.add-produce {
+  display: flex;
+  justify-content: center;
+}
+
+.produce-container {
+  display: flex;
+  justify-content: center;
+}
+
+.produce-input {
+  margin: 1vw;
+  width: 20%;
+}
+/*
+Don't use a button tag, instead use a div and style the button that way with event listeners
+
+For table data use table tag
+*/
