@@ -27,17 +27,22 @@ function renderProduceList(rawProduceList) {
 
   const produce = JSON.parse(rawProduceList);
 
-  produce.forEach(({ _id: id, name, numDays }) => {
+  produce.forEach(({ _id: id, name, numDays, createdAt }) => {
     const tableRow = document.createElement('TR');
+    const expirationDate = getExpirationDate(createdAt, numDays);
 
     tableRow.innerHTML = `
       <td>${name}</td>
-      <td>${numDays}</td>
+      <td>${expirationDate}</td>
       <td><span onclick="handleDelete('${id}')"><i class="fa fa-trash-o"></i></span></td>
     `;
 
     produceDataTable.append(tableRow);
   });
+}
+
+function getExpirationDate(createdDate, numDays) {
+  return moment(createdDate, 'YYYY-MM-DD').add(numDays, 'days').format('LL');
 }
 
 function handleDelete(id) {
