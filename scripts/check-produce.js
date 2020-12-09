@@ -1,8 +1,16 @@
 const { sendText } = require('../services/twilio');
-const { generateReminders, formatTwilioMessageBody } = require('../utils/helpers');
+const moment = require('moment');
+
+const {
+  getProduceData,
+  generateReminders,
+  formatTwilioMessageBody
+} = require('../utils/helpers');
 
 async function main() {
-  const reminders = await generateReminders();
+  const produceData = await getProduceData();
+  const today = moment();
+  const reminders = generateReminders({ today, produceData });
   const hasReminders = reminders.length > 0;
 
   if (hasReminders) {

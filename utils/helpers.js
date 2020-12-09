@@ -5,14 +5,15 @@ function getExpirationDate(createdDate, numDays) {
   return moment(createdDate).add(numDays, 'days');
 }
 
-async function generateReminders() {
-  const data = await db.asyncFind({});
-  const today = moment();
+async function getProduceData() {
+  return await db.asyncFind({});
+}
 
+function generateReminders({ today, produceData }) {
   const output = [];
   const MAX_DAYS_TILL_EXPIRATION = 2;
 
-  data.forEach(({ name, numDays, createdAt }) => {
+  produceData.forEach(({ name, numDays, createdAt }) => {
     const expirationDate = getExpirationDate(createdAt, numDays);
     const daysLeftTillExpirationDay = expirationDate.diff(today, 'days');
 
