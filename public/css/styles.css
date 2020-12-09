@@ -1,34 +1,96 @@
+body {
+  font-family: 'Roboto Mono', monospace;
+  background-color: #55E6C1;
+  color: #2C3A47;
+}
+
 .parent-container {
+  font-family: 'Roboto Mono', monospace;
   display: flex;
   justify-content: center;
+  font-weight: 400;
 }
 
 .produce-title {
   display: flex;
   justify-content: center;
+  font-size: 2em;
+  margin: 6px;
+  padding: 12px;
+  font-weight: 700;
+  color: #2d3436;
 }
 
 .produce-input-row {
   display: flex;
   justify-content: center;
+  align-items: center;
+  color: #636e72;
+  width: 70%;
 }
 
-.add-produce {
-  display: flex;
-  justify-content: center;
+.name, .num-days {
+  font-family: 'Roboto Mono', monospace;
+  padding: 12px;
+  text-align: center;
+  border-radius: .5em;
+  border: none;
+  outline: none;
+  font-size: .9em;
+}
+
+.produce-input {
+  flex: 100%;
+  margin: 6px;
+}
+
+#add-produce-btn {
+  margin: 6px;
+  padding: 10px 20px 10px 20px;
+  background-color: #1B9CFC;
+  border-radius: .5em;
+  color: white;
+  cursor: pointer;
+  transition: 300ms ease-in-out all;
+  font-size: 1em
+  font-weight: 700;
+}
+
+#add-produce-btn:hover {
+  opacity: 0.5;
+}
+
+#add-produce-btn:active {
+  opacity: 0.25;
 }
 
 .produce-container {
   display: flex;
   justify-content: center;
+  width: 70%;
 }
 
-.produce-input {
-  margin: 1vw;
-  width: 20%;
+.produce-data-table {
+  border-radius: .5em;
+  width: 100%;
+  margin: 6px;
+  background-color: white;
+  padding: 1em;
 }
-/*
-Don't use a button tag, instead use a div and style the button that way with event listeners
 
-For table data use table tag
-*/
+th {
+  margin: 6px;
+  padding: 0em 0em .5em 0em;
+  font-weight: 700;
+  font-size: 1em;
+}
+
+td {
+  font-size: .95em;
+}
+
+table {
+  text-align: left;
+  font-weight: 400;
+}
+

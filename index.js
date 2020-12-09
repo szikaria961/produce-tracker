@@ -3,7 +3,6 @@ const Joi = require("joi");
 require("dotenv").config();
 const db = require('./db');
 const morgan = require("morgan");
-const { sendReminder } = require('./services/twilio/index.js');
 
 const PORT = process.env.PORT || 8000;
 const DB_PATH = process.env.DB_PATH || "produce.db";

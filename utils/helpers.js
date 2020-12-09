@@ -57,5 +57,6 @@ function formatTwilioMessageBody(reminders) {
 
 module.exports = {
     generateReminders,
-    formatTwilioMessageBody
+    formatTwilioMessageBody,
+    getExpirationDate
 }
