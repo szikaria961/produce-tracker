@@ -1,20 +1,14 @@
-const db = require('../db');
-const moment = require('moment');
-const { getExpirationDate } = require('../utils/helpers');
+const { sendText } = require('../services/twilio');
+const { generateReminders, formatTwilioMessageBody } = require('../utils/helpers');
 
-function isExpired({
-  now = new Date(),
-  produceItem
-} = {}) {
-  if (produceItem) {
-    const { createdAt, numDays } = produceItem;
+async function main() {
+  const reminders = await generateReminders();
+  const hasReminders = reminders.length > 0;
 
-    return moment(now).isAfter(getExpirationDate(createdAt, numDays));
+  if (hasReminders) {
+    const body = formatTwilioMessageBody(reminders);
+    await sendText(body);
   }
-
-  return false;
 }
 
-module.exports = {
-  isExpired,
-}
+main();

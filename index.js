@@ -2,7 +2,8 @@ const express = require("express");
 const Joi = require("joi");
 require("dotenv").config();
 const db = require('./db');
-const { sendReminder } = require('./twilio/index.js');
+const morgan = require("morgan");
+const { sendReminder } = require('./services/twilio/index.js');
 
 const PORT = process.env.PORT || 8000;
 const DB_PATH = process.env.DB_PATH || "produce.db";
@@ -11,6 +12,13 @@ const API_KEY = process.env.API_KEY;
 const BASE_URL ="https://trackapi.nutritionix.com/v2/search/instant/query";
 
 const app = express();
+
+morgan.token("body", (req, res) => JSON.stringify(req.body));
+app.use(
+  morgan(
+    ":method :url :status :response-time ms - :res[content-length] :body - :req[content-length]"
+  )
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -41,8 +49,8 @@ app.get('/home', function (req, res) {
 
 app.post('/api/produce', async (req, res, next) => {
   try {
-    const { name, qty, numDays } = req.body;
-    const item = { name, qty, numDays };
+    const { name, numDays } = req.body;
+    const item = { name, numDays };
 
     await postSchema.validateAsync(item);
     const data = await db.asyncInsert(item);
@@ -87,5 +95,3 @@ app.delete('/api/produce/:id', async (req, res, next) => {
     next(err);
   }
 });
-
-sendReminder();
