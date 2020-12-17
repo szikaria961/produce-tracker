@@ -1,152 +1,10 @@
 const API_URL = 'api/produce';
-const MINIMUM_PRODUCE_NAME_LENGTH = 2;
+const MINIMUM_PRODUCE_NAME_LENGTH = 3;
 
 const produceNameElement = document.getElementById('produce-name');
 const numDaysElement = document.getElementById('num-days');
 const addProduceBtn = document.getElementById('add-produce-btn');
 const suggestionsRowElement = document.getElementById('suggestions-row');
-
-const produceSuggestionList = [
-  "alfalfa sprouts",
-  "apple",
-  "apricot",
-  "artichoke",
-  "asian pear",
-  "asparagus",
-  "atemoya",
-  "avocado",
-  "bamboo shoots",
-  "banana",
-  "beans",
-  "bean sprouts",
-  "beets",
-  "belgian endive",
-  "bitter melon",
-  "bell peppers",
-  "blackberries",
-  "blueberries",
-  "bok choy",
-  "boniato",
-  "boysenberries",
-  "broccoflower",
-  "broccoli",
-  "brussels sprouts",
-  "cabbage (green and red)",
-  "cantaloupe",
-  "carambola (star fruit or star apple)",
-  "carrots",
-  "casaba melon",
-  "cauliflower",
-  "celery",
-  "chayote",
-  "cherimoya (custard apple)",
-  "cherries",
-  "coconuts",
-  "collard greens",
-  "corn",
-  "cranberries",
-  "cucumber",
-  "dates",
-  "dried plums (a.k.a. prunes)",
-  "eggplant",
-  "endive",
-  "escarole",
-  "feijoa",
-  "fennel",
-  "figs (dry and fresh)",
-  "garlic",
-  "gooseberries",
-  "grapefruit",
-  "grapes",
-  "green beans",
-  "green onions",
-  "greens (turnip, beet, collard, mustard)",
-  "guava",
-  "hominy",
-  "honeydew melon",
-  "horned melon",
-  "iceberg lettuce",
-  "jerusalem artichoke",
-  "jicama",
-  "kale",
-  "kiwifruit",
-  "kohlrabi",
-  "kumquat",
-  "leeks",
-  "lemons",
-  "lettuce (boston, iceberg, leaf, romaine)",
-  "lima beans",
-  "limes",
-  "longan",
-  "loquat",
-  "lychee",
-  "madarins",
-  "malanga",
-  "mandarin oranges",
-  "mangos",
-  "mulberries",
-  "mushrooms",
-  "napa (chinese cabbage)",
-  "nectarines",
-  "okra",
-  "onion (green, red, spanish, yellow, white)",
-  "oranges",
-  "papayas",
-  "parsnip",
-  "passion fruit",
-  "peaches",
-  "pears",
-  "peas (green, snow, sugar snap)",
-  "peppers (bell – red, yellow, green, chili)",
-  "persimmons",
-  "pineapple",
-  "plantains",
-  "plums",
-  "pomegranate",
-  "potatoes",
-  "prickly pear (cactus pear)",
-  "prunes",
-  "pummelo (chinese grapefruit)",
-  "pumpkin",
-  "quince",
-  "radicchio",
-  "radishes",
-  "raisins",
-  "raspberries",
-  "red cabbage",
-  "rhubarb",
-  "romaine lettuce",
-  "rutabaga",
-  "shallots",
-  "snow peas",
-  "spinach",
-  "sprouts",
-  "squash (acorn, banana, buttercup, butternut,",
-  "summer)",
-  "strawberries",
-  "string beans",
-  "sweet potato",
-  "tangelo",
-  "tangerines",
-  "tomatillo",
-  "tomato",
-  "turnip",
-  "ugli fruit",
-  "watermelon",
-  "water chestnuts",
-  "watercress",
-  "waxed beans",
-  "yams",
-  "yellow squash",
-  "yuca/cassava",
-  "zucchini squash"
-];
-
-const commonProduceItems = [
-  "avocado",
-  "bananas",
-  "kale"
-];
 
 let selectedInput = "";
 
@@ -172,7 +30,7 @@ function renderProduceList(rawProduceList) {
   produceDataTable.innerHTML = `
     <tr>
       <th>Name</th>
-      <th>Expiration Date</th>
+      <th>Expires</th>
       <th></th>
     </tr>
   `;
@@ -185,7 +43,7 @@ function renderProduceList(rawProduceList) {
 
     tableRow.innerHTML = `
       <td>${name}</td>
-      <td>${expirationDate}</td>
+      <td>${moment(expirationDate).fromNow()}</td>
       <td><span onclick="handleDelete('${id}')"><i class="fa fa-trash-o"></i></span></td>
     `;
 
@@ -234,13 +92,14 @@ function showCommonItems() {
   commonProduceItems.forEach(item => {
     const commonSuggestionElement = document.createElement('DIV');
     commonSuggestionElement.innerHTML = `${item}`;
+    commonSuggestionElement.classList.add('suggestion');
+    commonSuggestionElement.onclick = () => {
+      produceNameElement.value = item;
+      updatePayload('name', item);
+    }
     suggestionsRowElement.appendChild(commonSuggestionElement);
   });
 }
-
-suggestionsRowElement.addEventListener('click', event => {
-  produceNameElement.value = event.target.innerHTML;
-});
 
 function showSuggestions(input) {
   const filteredInputList = searchProduce(input);
@@ -249,6 +108,11 @@ function showSuggestions(input) {
   filteredInputList.forEach(item => {
     const suggestionElement = document.createElement('DIV');
     suggestionElement.innerHTML = `${item}`;
+    suggestionElement.classList.add('suggestion');
+    suggestionElement.onclick = () => {
+      produceNameElement.value = item;
+      updatePayload('name', item);
+    }
     suggestionsRowElement.appendChild(suggestionElement);
   });
 }

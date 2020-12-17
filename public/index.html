@@ -9,32 +9,33 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <div class="flex-container">
-    <div class="produce-title">
-      Produce Tracker
+  <div id="app-container">
+    <div class="flex-container">
+      <div class="produce-title">
+        Produce Tracker
+      </div>
     </div>
-  </div>
-  <div class="flex-container">
-    <div class="produce-input-row">
-      <input class="produce-input name" type="text" placeholder="Name" id="produce-name"/>
-      <input class="produce-input num-days" type="number" id="num-days" placeholder="Days Left" min="1"/>
-      <div id="add-produce-btn" onclick="loadAllProduce()"><i class="fa fa-plus"></i></div>
+    <div class="flex-container">
+      <div class="produce-input-row">
+        <input class="produce-input name" type="text" placeholder="Name" id="produce-name"/>
+        <input class="produce-input num-days" type="number" id="num-days" placeholder="Days Left" min="1"/>
+        <div id="add-produce-btn" onclick="loadAllProduce()"><i class="fa fa-plus"></i></div>
+      </div>
     </div>
-  </div>
-  <div class="flex-container">
-    <div id="suggestions-row">
+    <div class="flex-container">
+      <div id="suggestions-row">
 
+      </div>
     </div>
-  </div>
-  <div class="flex-container">
-    <div class="produce-container">
-      <table class="produce-data-table">
-        <tbody id="produce-data-table-body">
-        </tbody>
-      </table>
+    <div class="flex-container">
+      <div class="produce-container">
+        <table class="produce-data-table">
+          <tbody id="produce-data-table-body">
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-  <div class="page-footer">
+    <div class="page-footer">
       <a class= github-link href="https://github.com/szikaria961/produce-tracker">
         <i class="fa fa-github"></i>
       </a>
@@ -42,6 +43,8 @@
       <i class="fa fa-heart heart-icon"></i>
       by Saba Zikaria.</a>
     </div>
+  </div>
+  <script src="js/data.js"></script>
   <script src="js/scripts.js"></script>
 </body>
 </html>
