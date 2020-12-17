@@ -30,7 +30,6 @@ body {
 }
 
 .name, .num-days {
-  font-family: 'Roboto Mono', monospace;
   padding: 12px;
   text-align: center;
   border-radius: .5em;
@@ -95,7 +94,6 @@ table {
 }
 
 .page-footer {
-  font-family: 'Roboto Mono', monospace;
   margin-top: 1rem;
   color: black;
   font-weight: 400;

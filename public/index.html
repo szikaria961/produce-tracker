@@ -9,19 +9,24 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <div class="parent-container">
+  <div class="flex-container">
     <div class="produce-title">
       Produce Tracker
     </div>
   </div>
-  <div class="parent-container">
+  <div class="flex-container">
     <div class="produce-input-row">
       <input class="produce-input name" type="text" placeholder="Name" id="produce-name"/>
       <input class="produce-input num-days" type="number" id="num-days" placeholder="Days Left" min="1"/>
-      <div id="add-produce-btn" onclick="loadAllProduce()">+</div>
+      <div id="add-produce-btn" onclick="loadAllProduce()"><i class="fa fa-plus"></i></div>
     </div>
   </div>
-  <div class="parent-container">
+  <div class="flex-container">
+    <div id="suggestions-row">
+
+    </div>
+  </div>
+  <div class="flex-container">
     <div class="produce-container">
       <table class="produce-data-table">
         <tbody id="produce-data-table-body">
