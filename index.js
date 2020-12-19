@@ -22,7 +22,7 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 app.listen(PORT, () => {
   console.log(`[ index.js ] Listening on ${PORT}`);
