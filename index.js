@@ -3,6 +3,7 @@ const Joi = require("joi");
 require("dotenv").config();
 const db = require('./db');
 const morgan = require("morgan");
+const { isExpired } = require('./utils/helpers.js');
 
 const PORT = process.env.PORT || 8000;
 const DB_PATH = process.env.DB_PATH || "produce.db";
@@ -58,8 +59,16 @@ app.post('/api/produce', async (req, res, next) => {
 
 app.get('/api/produce', async (req, res, next) => {
   try {
-    const data = await db.asyncFind({});
-    res.json(data);
+    const allProduce = await db.asyncFind({});
+    const freshProduce = [];
+
+    allProduce.forEach(item => {
+      if (!isExpired({ produceItem: item })) {
+        freshProduce.push(item);
+      }
+    });
+
+    res.json(freshProduce);
   } catch (err) {
     next(err);
   }

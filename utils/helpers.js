@@ -55,8 +55,22 @@ function formatTwilioMessageBody(reminders) {
   return output;
 }
 
+function isExpired({
+  now = new Date(),
+  produceItem
+} = {}) {
+  if (produceItem) {
+    const { createdAt, numDays } = produceItem;
+    return moment(now).isAfter(getExpirationDate(createdAt, numDays));
+  }
+
+  return false;
+}
+
 module.exports = {
     generateReminders,
     formatTwilioMessageBody,
-    getExpirationDate
+    getExpirationDate,
+    isExpired,
+    getProduceData
 }

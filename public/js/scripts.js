@@ -74,8 +74,9 @@ const handleSubmit = () => {
   }
 
   fetch(API_URL, options)
-    .then(res => res.json())
-    .then(data => console.log(data));
+    .then(res => res.json());
+
+  clearContent();
 }
 
 function filterArray(pattern, inputArray) {
@@ -145,6 +146,11 @@ numDaysElement.addEventListener('input', event => {
 
 addProduceBtn.addEventListener('click', handleSubmit);
 
+function clearContent() {
+  produceNameElement.value = '';
+  numDaysElement.value = null;
+  updateSuggestions();
+}
 
 function main() {
   loadAllProduce();
