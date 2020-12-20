@@ -8,6 +8,8 @@
     "test:watch": "jest --watch",
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "deploy": "ssh pi@192.168.0.107 'cd /home/pi/Development/github/produce-tracker && git pull origin main && npm install && pm2 restart produce_tracker'",
+    "daemon": "pm2 start --name produce_tracker index.js",
     "check-produce": "node scripts/check-produce.js"
   },
   "author": "",
