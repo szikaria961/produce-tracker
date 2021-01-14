@@ -1,12 +1,12 @@
 const API_URL = 'api/produce';
 const MINIMUM_PRODUCE_NAME_LENGTH = 3;
+let selectedInput = "";
 
 const produceNameElement = document.getElementById('produce-name');
 const numDaysElement = document.getElementById('num-days');
 const addProduceBtn = document.getElementById('add-produce-btn');
 const suggestionsRowElement = document.getElementById('suggestions-row');
 
-let selectedInput = "";
 
 let payload = {
   name: '',
@@ -26,7 +26,6 @@ function loadAllProduce() {
 
 function renderProduceList(rawProduceList) {
   const produceDataTable = document.getElementById("produce-data-table-body");
-
   produceDataTable.innerHTML = `
     <tr>
       <th>Name</th>
@@ -49,6 +48,7 @@ function renderProduceList(rawProduceList) {
 
     produceDataTable.append(tableRow);
   });
+  clearContent();
 }
 
 function getExpirationDate(createdDate, numDays) {
@@ -56,12 +56,20 @@ function getExpirationDate(createdDate, numDays) {
 }
 
 function handleDelete(id) {
-  var xhttp = new XMLHttpRequest();
+  const options = {
+    method: 'delete',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
 
-  xhttp.open("DELETE", `/api/produce/${id}`, true);
-  xhttp.send();
-
-  loadAllProduce();
+  fetch(API_URL + '/' + id, options)
+    .then(response => {
+      loadAllProduce();
+    })
+    .catch(error => {
+      console.log(error);
+    });
 }
 
 const handleSubmit = () => {
@@ -74,9 +82,13 @@ const handleSubmit = () => {
   }
 
   fetch(API_URL, options)
-    .then(res => res.json());
+    .then(response => {
+      loadAllProduce();
+    })
+    .catch(error => {
+      console.log(error);
+    });
 
-  clearContent();
 }
 
 function filterArray(pattern, inputArray) {
@@ -147,8 +159,8 @@ numDaysElement.addEventListener('input', event => {
 addProduceBtn.addEventListener('click', handleSubmit);
 
 function clearContent() {
-  produceNameElement.value = '';
-  numDaysElement.value = null;
+  updatePayload('name', produceNameElement.value = '');
+  updatePayload('numDays', numDaysElement.value = null);
   updateSuggestions();
 }
 
